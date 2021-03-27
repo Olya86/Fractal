@@ -14,9 +14,26 @@ namespace Fractal2
 {
     public partial class Form1 : Form
     {
+        FractalDBEntities _context;
+       
         public Form1()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);//
+            _context = new FractalDBEntities();
+
+
+            //_context.FractalPoint.Load();
+            //var points = _context.FractalPoint.ToList();
+
+
+           
+            //this.categoryBindingSource.DataSource =
+            //    _context.Categories.Local.ToBindingList();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -30,12 +47,17 @@ namespace Fractal2
             //Point point1 = new Point(10, 10);
             //Point point2 = Point.Add(point1, new Size(0, 46));
             //formGraphics.DrawLine(Pens.Red, point1, point2);
+            FractalPoint pointDDB = _context.FractalPoint
+                .Where(t => t.Name == "D")
+                .FirstOrDefault();
+            //List<FractalPoint> points = _context.FractalPoint.ToList();
+
             Point pointD = new Point ( 400, 200 );
             Point pointA = new Point ( 300, 50 );
             Point pointB = new Point ( 150, 300 );
             Point pointC = new Point ( 450, 300 );
 
-            formGraphics.FillEllipse(Brushes.Yellow, new Rectangle(pointD.X, pointD.Y, 2, 2));
+            formGraphics.FillEllipse(Brushes.Yellow, new Rectangle((int)pointDDB.PositionX, (int)pointDDB.PositionY, 10, 10));
             formGraphics.FillEllipse(Brushes.Green, new Rectangle(pointA.X, pointA.Y, 2, 2));
             formGraphics.FillEllipse(Brushes.Green, new Rectangle(pointB.X, pointB.Y, 2, 2));
             formGraphics.FillEllipse(Brushes.Green, new Rectangle(pointC.X, pointC.Y, 2, 2));
@@ -43,7 +65,7 @@ namespace Fractal2
             Point pointCur = new Point(pointD.X, pointD.Y);
 
             Random rnd = new Random();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 100; i++)
             {
 
                 //Получить случайное число (в диапазоне от 1 до 3)
