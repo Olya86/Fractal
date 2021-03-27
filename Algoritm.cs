@@ -12,7 +12,7 @@ namespace Fractal2
     public class Algoritm
     {
         public Point Calc(Point start, Point current)
-        {
+        {    
             
             decimal xNew =current.X + (start.X - current.X) / 2;
             decimal yNew = current.Y + (start.Y - current.Y) / 2;
